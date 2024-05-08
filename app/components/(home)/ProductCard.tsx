@@ -1,5 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import Link from "next/link";
+
 
 type Product = {
   id: string;
@@ -18,8 +21,9 @@ type Props = {
 };
 
 const ProductCard = ({ product }: Props) => {
+  
   return (
-    <div className="bg-white p-4 rounded-md flex items-center justify-center gap-4">
+    <Link href={`/Product/${product.id}`} className="bg-white p-4 rounded-md flex items-center justify-center gap-4">
       {product["name"]}
       <Image
         src={product["image"]}
@@ -27,7 +31,7 @@ const ProductCard = ({ product }: Props) => {
         height={100}
         alt={`image of ${product["name"]}`}
       />
-    </div>
+    </Link>
   );
 };
 
