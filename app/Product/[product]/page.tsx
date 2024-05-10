@@ -1,5 +1,4 @@
-import ProductDisplay from '@/app/components/ProductDisplay'
-import Product from '@/app/utils/types'
+import ProductDisplay from '@/app/components/(product)/ProductDisplay'
 import React from 'react'
 
 type Props = {

@@ -1,4 +1,4 @@
-type Product = {
+export type Product = {
     id: string;
     ean: string;
     name: string;
@@ -10,4 +10,11 @@ type Product = {
     updated_at: string;
   };
 
-export default Product
+ export type StorePrice = {
+    "ean": string;
+    "store" : string;
+    "price" : string;
+    "created_at": string;
+    "updated_at": string;
+}
+
