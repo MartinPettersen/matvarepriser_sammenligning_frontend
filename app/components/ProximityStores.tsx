@@ -75,9 +75,6 @@ const ProximityStores = () => {
 
   return (
     <div className="">
-      <p>
-        {latitude} {longitude}
-      </p>
       <div className="flex flex-col gap-4">
         {stores?.map((store, index) => (
           <div key={index} className="bg-white rounded-lg py-4 flex flex-row items-center justify-start">
