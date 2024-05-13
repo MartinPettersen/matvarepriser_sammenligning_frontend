@@ -90,9 +90,9 @@ const ProximityStores = () => {
   }
 
   return (
-    <div className="flex flex-col">
-      <input type="range" min="1" max="100" value={value} className="range slider" id="myRange" onChange={({target: {value: radius}}) => handleChange(radius)}/>
-      <div>Radius {value/10} km</div>
+    <div className="flex flex-col gap-2">
+      <input type="range" min="1" max="100" value={value} className="range slider appearance-none bg-slate-600 cursor-pointer rounded-md" id="myRange" onChange={({target: {value: radius}}) => handleChange(radius)}/>
+      <div className="text-white">Radius {value/10} km</div>
       <div className="flex flex-col gap-4">
         {stores?.map((store, index) => (
           <div key={index} className="bg-white rounded-lg py-4 flex flex-row items-center justify-start">
