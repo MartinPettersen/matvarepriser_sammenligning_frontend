@@ -3,17 +3,39 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from 'next/image'
 
+type OpeningHours = { 
+  friday: string, 
+  monday: string,
+  saturday: string,
+  sunday: string,
+  thursday: string,
+  tuesday: string,
+  wednesday: string }
+
 type Store = {
   group: string;
   name: string;
   website: string;
   logo: string;
+  openingHours: OpeningHours
 };
+
+const weekDays: (keyof OpeningHours)[] = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday", 
+  "saturday",
+]
 
 const ProximityStores = () => {
   const [stores, setStores] = useState<Store[]>([]);
   const [latitude, setLatitude] = useState<Number>();
   const [longitude, setLongitude] = useState<Number>();
+
+  const d = new Date()
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -72,6 +94,7 @@ const ProximityStores = () => {
               <Link href={store.website} className="text-blue-500">
                 side: {store.website}
               </Link>
+            <div>Åpningstider: {store.openingHours[weekDays[d.getDay()]]}</div>
             </div>
           </div>
         ))}
