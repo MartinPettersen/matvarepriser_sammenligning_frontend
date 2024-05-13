@@ -34,6 +34,7 @@ const ProximityStores = () => {
   const [stores, setStores] = useState<Store[]>([]);
   const [latitude, setLatitude] = useState<Number>();
   const [longitude, setLongitude] = useState<Number>();
+  const [value, setValue] = useState(50)
 
   const d = new Date()
 
@@ -47,9 +48,19 @@ const ProximityStores = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        getStoresCloseBy(position.coords.latitude, position.coords.longitude);
+      });
+    }
+  }, [value]);
+
   const getStoresCloseBy = async (lat: number, lng: number) => {
     const res = await fetch(
-      `http://127.0.0.1:5000/stores/proximity/lat=${lat}&lng=${lng}`,
+      `http://127.0.0.1:5000/stores/proximity/lat=${lat}&lng=${lng}&km=${value/10}`,
       {
         method: "GET",
         headers: new Headers({
@@ -65,7 +76,7 @@ const ProximityStores = () => {
 
       setStores(temp.data);
       console.log(`lat: ${latitude}`);
-      console.log(temp.data[0]);
+      console.log(temp.data.length);
     }
   };
 
@@ -73,8 +84,15 @@ const ProximityStores = () => {
   //    getStoresCloseBy();
   //  }
 
+
+  const handleChange = (radius: string) => {
+    setValue(Number(radius))
+  }
+
   return (
-    <div className="">
+    <div className="flex flex-col">
+      <input type="range" min="1" max="100" value={value} className="range slider" id="myRange" onChange={({target: {value: radius}}) => handleChange(radius)}/>
+      <div>Radius {value/10} km</div>
       <div className="flex flex-col gap-4">
         {stores?.map((store, index) => (
           <div key={index} className="bg-white rounded-lg py-4 flex flex-row items-center justify-start">
