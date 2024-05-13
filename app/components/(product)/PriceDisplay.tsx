@@ -18,15 +18,16 @@ const PriceDisplay = ({ ean }: Props) => {
   const [latitude, setLatitude] = useState<Number>();
   const [longitude, setLongitude] = useState<Number>();
 
-  useEffect(() => {
+  const getGeolocation = () => {
     if('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         setLatitude(position.coords.latitude)
         setLongitude(position.coords.longitude)
+        getStoreCloseBy(position.coords.latitude, position.coords.longitude)
       }
     )
     }
-  },[])  
+  }
 
   const updateFilters = () => {
     const list = []
@@ -62,7 +63,6 @@ const PriceDisplay = ({ ean }: Props) => {
 // http://127.0.0.1:5000/product/price/7035620025037search_query=KIWI+Joker
 
 const getFilteredStores = async () => {
-  console.log("i get called")
   let searchTerm = ""
   for (let i = 0; i < searchTags.length; i++) {
     if (i == 0){
@@ -92,22 +92,35 @@ const getFilteredStores = async () => {
   }
 };
 
-  const getStoreCloseBy = async () => {
-    const res = await fetch(`http://127.0.0.1:5000/stores/proximity/lat=${latitude}&lng=${longitude}`, {
+  const getStoreCloseBy = async (lat: number, lng: number) => {
+    const res = await fetch (`http://127.0.0.1:5000/stores/proximity/lat=${lat}&lng=${lng}&km=${5/10}`,
+    {
       method: "GET",
       headers: new Headers({
         Authorization: "e762f168-f0b6-4e0e-9fe4-622a6d3b3b0a",
       }),
-    });
+    }
+  );
     if (!res.ok) {
       const response = await res.json();
       console.log(response.message);
     } else {
       const temp = await res.json();
 
-      setStorePrices(temp.store_prices);
+      // setStorePrices(temp.store_prices);
+      setSearchTags([])
+      const matchList: string[] = []
+      for (let i = 0; i < temp["data"].length; i++) {
+        const keyWords = temp["data"][i].name.split(" ")
+        for (let j = 0; j < keyWords.length; j++) {
+          if (filterTags?.includes(keyWords[j])) {
+            matchList.push(keyWords[j])
 
-      console.log(temp.store_prices);
+          }
+        }
+      }
+      setSearchTags(matchList)
+      getFilteredStores()
     }
   };
 
@@ -132,8 +145,8 @@ const getFilteredStores = async () => {
     <div className="flex flex-col gap-4">
       <div className="bg-white rounded-md p-2 flex flex-col gap-2">
         <div className="bg-slate-700 p-1 rounded-md text-white flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 w-[12rem]" onClick={() => getFilteredStores()}>Filtrer på butikk kjede</div>
-        <div className="bg-slate-700 p-1 rounded-md text-white flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 w-[15rem]">Hvis bare i nærheten av meg</div>
-        <div className="bg-slate-700 p-1 rounded-md text-white flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 w-[5rem]">Hvis alle</div>
+        <div className="bg-slate-700 p-1 rounded-md text-white flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 w-[15rem]" onClick={() => getGeolocation()}>Hvis bare i nærheten av meg</div>
+        <div className="bg-slate-700 p-1 rounded-md text-white flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 w-[5rem]" onClick={() => getStorePrices()}>Hvis alle</div>
         <div className="flex gap-2">
         {filterTags?.map((tag, i) => (
           <div key={i} className={`${searchTags.includes(tag)? "text-slate-700" : "text-slate-300" } hover:text-slate-500 cursor-pointer`} onClick={() => handleFilterChange(tag)}>{tag}</div>
