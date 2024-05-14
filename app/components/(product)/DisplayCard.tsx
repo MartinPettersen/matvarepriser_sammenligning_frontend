@@ -15,10 +15,16 @@ const DisplayCard = ({storePrice, index}: Props) => {
       <div
         className={`bg-white p-2 rounded-md flex relative z-10 justify-between`}
       >
-        <Medalion index={storePrice.ranking} />
+        <Medalion index={Number(storePrice.ranking)} />
 
         <div className="px-4">{storePrice.store} </div>
         <div>{storePrice.price} kr</div>
+        {Number(storePrice.ranking) != 1?
+
+        <div className="text-red-500">{storePrice.price_increase} %</div>
+      : <div className="text-white">-------</div> 
+      }
+
       </div>
 
     </>
