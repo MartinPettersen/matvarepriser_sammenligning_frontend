@@ -11,6 +11,8 @@ const PriceDisplay = ({ ean }: Props) => {
   const [storePrices, setStorePrices] = useState<StorePrice[]>([]);
   const [storePricesList, setStorePricesList] = useState<StorePrice[]>([]);
 
+  
+
   const [filterTags, setFilterTags] = useState<string[]>();
   const [searchTags, setSearchTags] = useState<string[]>([]);
 

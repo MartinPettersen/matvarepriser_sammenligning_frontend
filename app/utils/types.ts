@@ -16,5 +16,7 @@ export type Product = {
     "price" : string;
     "created_at": string;
     "updated_at": string;
+    "ranking": string;
+    "price_increase": string,
 }
 
