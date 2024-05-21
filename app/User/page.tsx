@@ -9,12 +9,14 @@ const page = async () => {
 
 
     if(!session){
-        redirect("/api/auth/signin?callbackUrl=/Member")
+        redirect("/api/auth/signin?callbackUrl=/User")
     }
 
   return (
     <div className='w-full h-[90vh] flex items-center justify-center'>
-        <UserPage />
+
+
+        <UserPage id={session?.user?.role}/>
     </div>
   )
 }

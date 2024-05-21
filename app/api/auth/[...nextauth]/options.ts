@@ -4,24 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt';
 export const options = {
     providers: [
-        GoogleProvider({
-            profile(profile) {
-                console.log("Profile Google", profile);
-
-                let userRole = "Google User";
-                if (profile?.email == process.env.ADMIN_EMAIL!) {
-                    userRole = "admin";
-                }
-
-                return {
-                    ...profile,
-                    id: profile.sub,
-                    role: userRole,
-                };
-            },
-            clientId: process.env.GOOGLE_ID!,
-            clientSecret: process.env.GOOGLE_SECRET!,
-        }),
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -71,13 +53,32 @@ export const options = {
                     console.log("our found user")
                     console.log(foundUser)
                     if (foundUser) {
-                        const match = await bcrypt.compare(credentials!.password, foundUser.message.password);
+                        console.log("about to check for match")
+                        console.log(`credentials password ${credentials!.password}`)
+                        console.log(`foundUser.user password ${foundUser.user.password}`)
 
+                        const match = await bcrypt.compare(credentials!.password, foundUser.user.password);
+                        console.log(`the result is ${match}`)
                         if (match) {
-                           // delete foundUser.password;
+                            delete foundUser.password;
+                            console.log("its a match")
+                            foundUser["role"] = foundUser.user.id;
+                            foundUser["name"] = foundUser.user.name;
+                            foundUser["id"] = foundUser.user.id;
+                            foundUser["email"] = foundUser.user.email;
+                            
 
-                            // foundUser["role"] = "uverifisert email";
 
+                            /*
+                            const temp = {
+                                user: {
+                                  name: foundUser.message.name,
+                                  email: foundUser.message.email,
+                                  image: undefined,
+                                  role: 'uverifisert email'
+                                }
+                              }
+                              */
                             return foundUser;
                         }
                     }

@@ -45,7 +45,7 @@ const PriceDisplay = ({ ean }: Props) => {
     const res = await fetch(`http://127.0.0.1:5000/product/price/${ean}`, {
       method: "GET",
       headers: new Headers({
-        Authorization: "e762f168-f0b6-4e0e-9fe4-622a6d3b3b0a",
+        Authorization: "6f8ef514-2432-439b-a388-6c7142a631a2",
       }),
     });
     if (!res.ok) {
@@ -80,7 +80,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "e762f168-f0b6-4e0e-9fe4-622a6d3b3b0a",
+          Authorization: "6f8ef514-2432-439b-a388-6c7142a631a2",
         }),
       }
     );
@@ -104,7 +104,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "e762f168-f0b6-4e0e-9fe4-622a6d3b3b0a",
+          Authorization: "6f8ef514-2432-439b-a388-6c7142a631a2",
         }),
       }
     );

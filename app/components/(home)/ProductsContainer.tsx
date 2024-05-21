@@ -9,7 +9,7 @@ const ProductsContainer = () => {
     const getProducts = async () => {
         const res = await fetch("http://127.0.0.1:5000/products", {
             method: "GET",
-            headers: new Headers({ "Authorization": "e762f168-f0b6-4e0e-9fe4-622a6d3b3b0a"},)
+            headers: new Headers({ "Authorization": "6f8ef514-2432-439b-a388-6c7142a631a2"},)
         });
         if (!res.ok) {
             const response = await res.json();
