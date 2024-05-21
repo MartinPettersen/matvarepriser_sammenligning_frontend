@@ -1,5 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
+import ProductCard from "../(home)/ProductCard";
+import ProductDisplay from "../(product)/ProductDisplay";
 
 type Props = {
   id: string
@@ -40,11 +42,12 @@ const UserPage = ({id}: Props) => {
     FetchUserFavourites(id)
   },[])
 
-  return <div>
+  return <div className="w-screen h-screen">
 
   <div>Favoritter</div>
-  <div>{userFavourites.map((favourite, index) => (
-    <div key={index}>{favourite}</div>
+  <div className="flex flex-col">{userFavourites.map((favourite, index) => (
+    <ProductDisplay key={index} id={favourite[1]} />
+
   ))}</div>
   </div>;
 };
