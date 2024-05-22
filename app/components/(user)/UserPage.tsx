@@ -25,9 +25,7 @@ const UserPage = ({id}: Props) => {
       });
 
       if (response.ok) {
-        console.log("it worked");
         const theResponse = await response.json();
-        console.log(theResponse);
         setUserFavourites(theResponse)
         return theResponse;
       } else {

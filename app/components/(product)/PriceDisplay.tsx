@@ -33,19 +33,17 @@ const PriceDisplay = ({ ean }: Props) => {
 
   const updateFilters = () => {
     const list = [];
-    console.log("me gets caled");
     for (let i in storePricesList) {
       list.push(storePricesList[i].store);
     }
     setFilterTags(list);
-    console.log(filterTags);
   };
 
   const getStorePrices = async () => {
     const res = await fetch(`http://127.0.0.1:5000/product/price/${ean}`, {
       method: "GET",
       headers: new Headers({
-        Authorization: "6f8ef514-2432-439b-a388-6c7142a631a2",
+        Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
       }),
     });
     if (!res.ok) {
@@ -57,7 +55,6 @@ const PriceDisplay = ({ ean }: Props) => {
       setStorePrices(temp.store_prices);
       setStorePricesList(temp.store_prices);
 
-      console.log(temp.store_prices);
     }
   };
 
@@ -65,8 +62,6 @@ const PriceDisplay = ({ ean }: Props) => {
 
   const getFilteredStores = async (tags=searchTags) => {
     let searchTerm = "";
-    console.log(tags)
-    console.log(searchTags);
     for (let i = 0; i < tags.length; i++) {
       if (i == 0) {
         searchTerm += tags[i];
@@ -80,7 +75,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "6f8ef514-2432-439b-a388-6c7142a631a2",
+          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
         }),
       }
     );
@@ -92,7 +87,6 @@ const PriceDisplay = ({ ean }: Props) => {
 
       setStorePrices(temp.store_prices);
 
-      console.log(temp.store_prices);
     }
   };
 
@@ -104,7 +98,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "6f8ef514-2432-439b-a388-6c7142a631a2",
+          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
         }),
       }
     );
@@ -123,14 +117,11 @@ const PriceDisplay = ({ ean }: Props) => {
             filterTags?.includes(keyWords[j]) &&
             !matchList?.includes(keyWords[j])
           ) {
-            console.log(`we have a match ${keyWords[j]} is in the filter`);
             matchList.push(keyWords[j]);
           }
         }
       }
-      console.log(matchList);
       setSearchTags([...searchTags,...matchList]);
-      console.log(searchTags);
       
       // setTimeout(getFilteredStores, 4000);
       getFilteredStores(matchList)
@@ -156,9 +147,7 @@ const PriceDisplay = ({ ean }: Props) => {
   }, [storePricesList]);
 
   useEffect(() => {
-    console.log("searchTags")
 
-    console.log(searchTags)
   },[searchTags])
 
   useEffect(() => {

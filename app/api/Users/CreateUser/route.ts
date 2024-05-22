@@ -3,12 +3,10 @@ import bcrypt from "bcrypt"
 
 export async function POST(req: any){
 
-    console.log("got a request")
     const CreateUser = async (id:string, password: string, email: string, name: string) => {
         const url = "http://127.0.0.1:5000/api/createuser";
         
         const data = {id, password, email, name };
-        console.log("i get called");
         try {
           const response = await fetch(url, {
             method: "POST",
@@ -19,7 +17,6 @@ export async function POST(req: any){
           });
     
           if (response.ok) {
-            console.log("it worked");
     
           } else {
             console.log(response);
@@ -42,8 +39,6 @@ export async function POST(req: any){
           });
     
           if (response.ok) {
-            console.log("it worked");
-            console.log(response.json())
             return response.json()
           } else {
             console.log(response);
@@ -62,7 +57,6 @@ export async function POST(req: any){
         }
 
         const existingUser = FetchUser(userData.email)
-        console.log(existingUser)
 
         if (await existingUser) {
             return NextResponse.json({message: "User allready exists"}, {status: 409});            

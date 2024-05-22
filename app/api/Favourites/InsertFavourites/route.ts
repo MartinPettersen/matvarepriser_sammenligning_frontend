@@ -2,12 +2,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: any) {
 
-    console.log("got a request")
     const insertUserFavourite = async (id: string, product_id: string) => {
         const url = "http://127.0.0.1:5000/api/insertuserfavourites";
 
         const data = { id, product_id };
-        console.log("i get called");
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -18,7 +16,6 @@ export async function POST(req: any) {
             });
 
             if (response.ok) {
-                console.log("it worked");
 
             } else {
                 console.log(response);
@@ -43,7 +40,6 @@ export async function POST(req: any) {
         return NextResponse.json({ message: "User Favourite inserted" }, { status: 201 });
 
     } catch (error) {
-        console.log(error)
         return NextResponse.json({ message: "error", error }, { status: 500 });
     }
 }

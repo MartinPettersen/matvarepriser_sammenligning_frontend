@@ -27,8 +27,6 @@ const UserForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setErrorMessage("");
-    console.log("we send")
-    console.log(formData)
 
     const res = await fetch("/api/Users/CreateUser", {
       method: "POST",
@@ -39,7 +37,6 @@ const UserForm = () => {
     if (!res.ok){
         const response = await res.json()
         setErrorMessage(response.message)
-        console.log(response.message)
     } else {
         router.refresh()
         router.push("/")

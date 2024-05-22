@@ -35,9 +35,7 @@ export const options = {
                           });
                     
                           if (response.ok) {
-                            console.log("it worked");
                             const theResponse = await response.json() 
-                            console.log(theResponse)
                             return theResponse
                           } else {
                             console.log(response);
@@ -48,20 +46,12 @@ export const options = {
                     }
 
                     // const foundUser: any = await User.findOne({ email: credentials!.email }).lean().exec()
-                    console.log("about to start")
                     const foundUser:any = await FetchUser(credentials!.email)
-                    console.log("our found user")
-                    console.log(foundUser)
                     if (foundUser) {
-                        console.log("about to check for match")
-                        console.log(`credentials password ${credentials!.password}`)
-                        console.log(`foundUser.user password ${foundUser.user.password}`)
 
                         const match = await bcrypt.compare(credentials!.password, foundUser.user.password);
-                        console.log(`the result is ${match}`)
                         if (match) {
                             delete foundUser.password;
-                            console.log("its a match")
                             foundUser["role"] = foundUser.user.id;
                             foundUser["name"] = foundUser.user.name;
                             foundUser["id"] = foundUser.user.id;

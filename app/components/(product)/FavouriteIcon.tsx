@@ -27,7 +27,6 @@ const FavouriteIcon = ({ productId }: Props) => {
       const response = await res.json();
       console.log(response.message);
     } else {
-      console.log(res);
     }
   };
 
@@ -44,15 +43,12 @@ const FavouriteIcon = ({ productId }: Props) => {
       const response = await res.json();
       console.log(response.message);
     } else {
-      console.log(res);
     }
   };
 
   const CheckIfFavourite = async () => {
-    console.log("is checking");
     const id = session?.user?.role;
     const product_id = productId;
-    console.log(`id: ${id} product_id: ${product_id}`);
     const res = await fetch("/api/Favourites/CheckFavourites", {
       method: "POST",
       body: JSON.stringify({ id, product_id }),
@@ -60,15 +56,11 @@ const FavouriteIcon = ({ productId }: Props) => {
     });
 
     if (!res.ok) {
-      console.log("fmfmm");
       const response = await res.json();
       console.log(response.message);
     } else {
-      console.log("restponse is");
-      console.log(res)
       const response = await res.json();
 
-      console.log(response.message);
       if (response.message == "False") {
         setIsFavourite(false)
       } else {

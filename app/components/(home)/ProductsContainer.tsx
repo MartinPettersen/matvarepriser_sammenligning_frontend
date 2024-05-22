@@ -9,20 +9,17 @@ const ProductsContainer = () => {
     const getProducts = async () => {
         const res = await fetch("http://127.0.0.1:5000/products", {
             method: "GET",
-            headers: new Headers({ "Authorization": "6f8ef514-2432-439b-a388-6c7142a631a2"},)
+            headers: new Headers({ "Authorization": "f9eabee2-d4b4-4bf1-bbd0-f8fd31cfcb2f"},)
         });
         if (!res.ok) {
+            console.log("fail")
             const response = await res.json();
-            console.log(response.message);
+            console.log(response)
         } else {
-            // console.log((res))
+            console.log("success")
             const temp = await res.json();
-            //console.log(temp)
-            //console.log(temp.data)
 
             setProducts(temp);
-            console.log(temp)
-            // console.log(temp.data)
         }
     }
 

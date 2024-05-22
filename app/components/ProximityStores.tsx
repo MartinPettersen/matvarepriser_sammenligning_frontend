@@ -64,19 +64,17 @@ const ProximityStores = () => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "e762f168-f0b6-4e0e-9fe4-622a6d3b3b0a",
+          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
         }),
       }
     );
     if (!res.ok) {
       const response = await res.json();
-      console.log(response.message);
+      console.log(response)
     } else {
       const temp = await res.json();
-
+      console.log(temp)
       setStores(temp.data);
-      console.log(`lat: ${latitude}`);
-      console.log(temp.data.length);
     }
   };
 

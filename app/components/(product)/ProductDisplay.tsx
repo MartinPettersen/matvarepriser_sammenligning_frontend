@@ -19,7 +19,7 @@ const ProductDisplay = ({ id }: Props) => {
     const res = await fetch(`http://127.0.0.1:5000/product/${id}`, {
       method: "GET",
       headers: new Headers({
-        Authorization: "e762f168-f0b6-4e0e-9fe4-622a6d3b3b0a",
+        Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
       }),
     });
     if (!res.ok) {
@@ -29,7 +29,6 @@ const ProductDisplay = ({ id }: Props) => {
       const temp = await res.json();
 
       setProduct(temp);
-      console.log(temp);
     }
   };
 

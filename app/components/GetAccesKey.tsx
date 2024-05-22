@@ -12,15 +12,10 @@ const ProductsContainer = () => {
         });
         if (!res.ok) {
             const response = await res.json();
-            console.log(response.message);
         } else {
-            console.log((await res.text()))
             const temp = await res.json();
-            // console.log(temp)
-            // console.log(temp.data)
 
             setProducts(temp.data);
-            // console.log(temp.data)
         }
     }
 
