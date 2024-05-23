@@ -4,9 +4,9 @@ import Image from "next/image";
 import PriceDisplay from "./PriceDisplay";
 import { Product } from "@/app/utils/types";
 import { StarIcon as FavIconSolid } from "@heroicons/react/24/solid";
-import { StarIcon as FavIconOutline} from "@heroicons/react/24/outline";
+import { StarIcon as FavIconOutline } from "@heroicons/react/24/outline";
 import FavouriteIcon from "./FavouriteIcon";
-
+import AnalysisWindow from "./AnalysisWindow";
 
 type Props = {
   id: string;
@@ -27,7 +27,8 @@ const ProductDisplay = ({ id }: Props) => {
       console.log(response.message);
     } else {
       const temp = await res.json();
-
+      console.log("the product");
+      console.log(temp);
       setProduct(temp);
     }
   };
@@ -37,23 +38,27 @@ const ProductDisplay = ({ id }: Props) => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen gap-4">
-      <div className="bg-white w-[40%] h-[50%] p-8 flex flex-col rounded-md gap-4">
-        <div className="flex">
-          <h1 className="font-bold text-3xl">{product?.name}</h1>
-          <FavouriteIcon productId={product?.id}/>
+    <div className="flex items-center flex-col justify-center min-h-screen">
+      <div className="flex items-center justify-center  gap-4">
+        <div className="bg-white w-[40%] h-[50%] p-8 flex flex-col rounded-md gap-4">
+          <div className="flex">
+            <h1 className="font-bold text-3xl">{product?.name}</h1>
+            <FavouriteIcon productId={product?.id} />
+          </div>
+          {product != undefined ? (
+            <Image
+              src={product!["image"]}
+              width={300}
+              height={300}
+              alt={`image of ${product!["name"]}`}
+            />
+          ) : null}
+          {product?.description}
         </div>
-        {product != undefined ? (
-          <Image
-            src={product!["image"]}
-            width={300}
-            height={300}
-            alt={`image of ${product!["name"]}`}
-          />
-        ) : null}
-        {product?.description}
+        {product != undefined ? <PriceDisplay ean={product.ean} /> : null}
       </div>
-      {product != undefined ? <PriceDisplay ean={product.ean} /> : null}
+      {product != undefined ? <AnalysisWindow ean={product.ean} /> : null}
+
     </div>
   );
 };

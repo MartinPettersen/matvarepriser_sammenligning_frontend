@@ -14,9 +14,11 @@ export type Product = {
     "ean": string;
     "store" : string;
     "price" : string;
+    "price_history": PricePoint[];
     "created_at": string;
     "updated_at": string;
     "ranking": string;
     "price_increase": string,
 }
 
+export type PricePoint = {"price": number, "date": string}

@@ -22,7 +22,7 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ['bilder.ngdata.no'],
+    domains: ['bilder.ngdata.no', 'res.cloudinary.com'],
 }
 };
 
