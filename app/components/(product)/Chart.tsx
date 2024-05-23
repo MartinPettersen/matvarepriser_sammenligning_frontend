@@ -8,38 +8,40 @@ type Props = {
 }
 
 const Chart = ({storePrices}: Props) => {
-    const datae = storePrices[0]["price_history"]
-    console.log("The datae")
-    console.log(typeof(datae))
-    //console.log(datae)
-    const dates = []
-    const price_data = []
 
-    for (let i = 0; i < datae.length; i++){
-        console.log(datae[i])
-        dates.push(datae[i]["date"].substr(0, 10))
-        price_data.push(datae[i]["price"])
+    const datasets_temp = []
+
+    let dates = []
+    for (let j = 0; j <storePrices.length; j++){
+        const datae = storePrices[j]["price_history"]
+        const price_data = []
+
+        dates = []
+        for (let i = 0; i < datae.length; i++){
+            console.log(`store: ${storePrices[j]["store"]} price: ${datae[i]["price"]} date: ${datae[i]["date"]}`)
+            dates.push(datae[i]["date"].substr(0, 10))
+            price_data.push(datae[i]["price"])
+        }
+        const dataset = {
+            label: storePrices[j]["store"],
+            backgroundColor: `rgba(${0 + (30 *j)},${60 - (0 *j)},${190 - (30 *j)},0.2)`,
+            borderColor: `rgba(${0 + (30 *j)},${60 - (0 *j)},${190 - (30 *j)},1)`,
+            data: price_data,
+        }
+
+        datasets_temp.push(dataset)
     }
 
  //   console.log(dates)
   //  console.log(price_data)
     const test_data = {
         labels: dates,
-        datasets: [
-            {
-                label: 'My Firsts dataset',
-                backgroundColor: 'rgba(75,192,192,0.2)',
-                borderColor: 'rgba(75,192,192,1)',
-                data: price_data,
-            },
-        ],
+        datasets: datasets_temp,
     };
 
     const options = {
         scales: {
-            y: {
-                beginAtZero: true,
-            }
+           
         }
     }
 

@@ -218,7 +218,7 @@ const PriceDisplay = ({ ean }: Props) => {
           ) : null}
         </div>
       </div>
-      <div className="bg-slate-800 p-2 rounded-xl">
+      <div className="bg-slate-100 p-2 rounded-xl">
       {storePrices.length != 0 ?
         <Chart storePrices={storePrices}/>
         : null}
