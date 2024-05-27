@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import PriceDisplay from "./PriceDisplay";
 import { Product } from "@/app/utils/types";
-import { StarIcon as FavIconSolid } from "@heroicons/react/24/solid";
-import { StarIcon as FavIconOutline } from "@heroicons/react/24/outline";
 import FavouriteIcon from "./FavouriteIcon";
 import AnalysisWindow from "./AnalysisWindow";
 
@@ -19,7 +17,7 @@ const ProductDisplay = ({ id }: Props) => {
     const res = await fetch(`http://127.0.0.1:5000/product/${id}`, {
       method: "GET",
       headers: new Headers({
-        Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+        Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
       }),
     });
     if (!res.ok) {

@@ -64,7 +64,7 @@ const ProximityStores = () => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+          Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
         }),
       }
     );

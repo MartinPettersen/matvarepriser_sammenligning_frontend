@@ -41,7 +41,7 @@ const PriceDisplay = ({ ean }: Props) => {
     const res = await fetch(`http://127.0.0.1:5000/product/price/${ean}`, {
       method: "GET",
       headers: new Headers({
-        Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+        Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
       }),
     });
     if (!res.ok) {
@@ -74,7 +74,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+          Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
         }),
       }
     );
@@ -96,7 +96,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+          Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
         }),
       }
     );

@@ -8,7 +8,7 @@ const Navbar = async () => {
   const session = await getServerSession(options)
 
   return (
-    <div className="min-w-screen h-[10vh] sticky top-0 bg-slate-700 flex items-center justify-center font-bold text-3xl text-white gap-4">
+    <div className="min-w-screen h-[10vh] sticky z-100 top-0 bg-slate-700 flex items-center justify-center font-bold text-3xl text-white gap-4">
       <Link href="/" className="">
         Matvare Priser
       </Link>

@@ -45,7 +45,7 @@ const PriceDisplay = ({ ean }: Props) => {
     const res = await fetch(`http://127.0.0.1:5000/product/price/${ean}`, {
       method: "GET",
       headers: new Headers({
-        Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+        Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
       }),
     });
     if (!res.ok) {
@@ -79,7 +79,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+          Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
         }),
       }
     );
@@ -103,7 +103,7 @@ const PriceDisplay = ({ ean }: Props) => {
       {
         method: "GET",
         headers: new Headers({
-          Authorization: "abbd229c-797b-43a7-bca6-d250e4973122",
+          Authorization: process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
         }),
       }
     );
@@ -156,7 +156,7 @@ const PriceDisplay = ({ ean }: Props) => {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-3">
       <div className="flex gap-2">
         <div className="bg-white rounded-md p-2 flex flex-col gap-2">
           <div
@@ -207,7 +207,7 @@ const PriceDisplay = ({ ean }: Props) => {
         <div className="flex flex-col gap-4">
           <div className="bg-white font-semibold rounded-md h-full p-4">
             <div>Gjennomsnitts Pris: {average}</div>
-            <div>Mean Pris: {mean}</div>
+            <div>Median Pris: {mean}</div>
           </div>
 
           <div></div>
