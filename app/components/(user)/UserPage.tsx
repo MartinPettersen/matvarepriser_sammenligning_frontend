@@ -45,7 +45,6 @@ const UserPage = ({id}: Props) => {
   <div>Favoritter</div>
   <div className="flex flex-col">{userFavourites.map((favourite, index) => (
     <ProductDisplay key={index} id={favourite[1]} />
-
   ))}</div>
   </div>;
 };

@@ -28,14 +28,7 @@ const FavouriteIcon = ({ productId }: Props) => {
         console.log(response.message)
     } else {
       const response = await res.json()
- 
-      console.log('Full response:', response);
 
-      if (response && response.user && response.user.id) {
-        console.log('User ID:', response.user.id);
-      } else {
-        console.error('Response does not contain user.id:', response);
-      }
       setUserId(response.user.id)
       CheckIfFavourite(response.user.id);
 
@@ -60,6 +53,7 @@ const FavouriteIcon = ({ productId }: Props) => {
       const response = await res.json();
       console.log(response.message);
     } else {
+      setIsFavourite(true)
     }
   };
 
@@ -76,6 +70,7 @@ const FavouriteIcon = ({ productId }: Props) => {
       const response = await res.json();
       console.log(response.message);
     } else {
+      setIsFavourite(false)
     }
   };
 
