@@ -12,6 +12,7 @@ export async function POST(req: any){
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
             },
             body: JSON.stringify(data),
           });
@@ -34,6 +35,7 @@ export async function POST(req: any){
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
             },
             body: JSON.stringify(data),
           });

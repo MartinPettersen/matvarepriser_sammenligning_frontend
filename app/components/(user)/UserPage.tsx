@@ -20,6 +20,8 @@ const UserPage = ({id}: Props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
+
         },
         body: JSON.stringify(data),
       });
@@ -27,6 +29,7 @@ const UserPage = ({id}: Props) => {
       if (response.ok) {
         const theResponse = await response.json();
         setUserFavourites(theResponse)
+        console.log(theResponse)
         return theResponse;
       } else {
         console.log(response);

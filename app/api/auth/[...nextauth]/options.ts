@@ -23,30 +23,32 @@ export const options = {
 
                     const FetchUser = async (email: string) => {
                         const url = "http://127.0.0.1:5000/api/getuser";
-                        
-                        const data = {email};
+
+                        const data = { email };
                         try {
-                          const response = await fetch(url, {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(data),
-                          });
-                    
-                          if (response.ok) {
-                            const theResponse = await response.json() 
-                            return theResponse
-                          } else {
-                            console.log(response);
-                          }
+                            const response = await fetch(url, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": process.env.NEXT_PUBLIC_MATVARE_PRISER_KEY!,
+
+                                },
+                                body: JSON.stringify(data),
+                            });
+
+                            if (response.ok) {
+                                const theResponse = await response.json()
+                                return theResponse
+                            } else {
+                                console.log(response);
+                            }
                         } catch (error) {
-                          console.log(error);
-                        }    
+                            console.log(error);
+                        }
                     }
 
                     // const foundUser: any = await User.findOne({ email: credentials!.email }).lean().exec()
-                    const foundUser:any = await FetchUser(credentials!.email)
+                    const foundUser: any = await FetchUser(credentials!.email)
                     if (foundUser) {
 
                         const match = await bcrypt.compare(credentials!.password, foundUser.user.password);
@@ -56,7 +58,7 @@ export const options = {
                             foundUser["name"] = foundUser.user.name;
                             foundUser["id"] = foundUser.user.id;
                             foundUser["email"] = foundUser.user.email;
-                            
+
 
 
                             /*
@@ -84,7 +86,7 @@ export const options = {
         signIn:"/signIn"
     ,
     }*/
-    
+
     callbacks: {
         async jwt({ token, user }: any) {
             if (user) token.role = user.role;
