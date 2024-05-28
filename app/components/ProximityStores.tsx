@@ -73,7 +73,6 @@ const ProximityStores = () => {
       console.log(response)
     } else {
       const temp = await res.json();
-      console.log(temp)
       setStores(temp.data);
     }
   };

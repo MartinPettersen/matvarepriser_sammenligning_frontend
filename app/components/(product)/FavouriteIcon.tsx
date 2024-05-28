@@ -10,12 +10,45 @@ type Props = {
 };
 
 const FavouriteIcon = ({ productId }: Props) => {
+
+  const [userID, setUserId] = useState() 
+
+  const fetchUserId = async () => {
+
+    const email = session?.user?.email
+
+    const res = await fetch("/api/Users/FetchUserId", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+      headers: new Headers({ "content-type": "application/json" }),
+    });
+
+    if (!res.ok){
+        const response = await res.json()
+        console.log(response.message)
+    } else {
+      const response = await res.json()
+ 
+      console.log('Full response:', response);
+
+      if (response && response.user && response.user.id) {
+        console.log('User ID:', response.user.id);
+      } else {
+        console.error('Response does not contain user.id:', response);
+      }
+      setUserId(response.user.id)
+      CheckIfFavourite(response.user.id);
+
+    }
+
+  }
+
   const { data: session } = useSession();
 
   const [isFavourite, setIsFavourite] = useState(false);
 
   const submitFavourite = async () => {
-    const id = session?.user?.role;
+    const id = userID;
     const product_id = productId;
     const res = await fetch("/api/Favourites/InsertFavourites", {
       method: "POST",
@@ -31,7 +64,7 @@ const FavouriteIcon = ({ productId }: Props) => {
   };
 
   const deleteFavourite = async () => {
-    const id = session?.user?.role;
+    const id = userID;
     const product_id = productId;
     const res = await fetch("/api/Favourites/DeleteFavourites", {
       method: "POST",
@@ -46,8 +79,8 @@ const FavouriteIcon = ({ productId }: Props) => {
     }
   };
 
-  const CheckIfFavourite = async () => {
-    const id = session?.user?.role;
+  const CheckIfFavourite = async (userId: string) => {
+    const id = userId;
     const product_id = productId;
     const res = await fetch("/api/Favourites/CheckFavourites", {
       method: "POST",
@@ -70,11 +103,11 @@ const FavouriteIcon = ({ productId }: Props) => {
   };
 
   useEffect(() => {
-    CheckIfFavourite();
+    CheckIfFavourite(userID!);
   }, [isFavourite]);
 
   useEffect(() => {
-    CheckIfFavourite();
+    fetchUserId()
   }, [session]);
 
   return (

@@ -26,8 +26,6 @@ const ProductDisplay = ({ id }: Props) => {
       console.log(response.message);
     } else {
       const temp = await res.json();
-      console.log("the product");
-      console.log(temp);
       setProduct(temp);
     }
   };

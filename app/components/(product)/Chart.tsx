@@ -18,7 +18,6 @@ const Chart = ({storePrices}: Props) => {
 
         dates = []
         for (let i = 0; i < datae.length; i++){
-            console.log(`store: ${storePrices[j]["store"]} price: ${datae[i]["price"]} date: ${datae[i]["date"]}`)
             dates.push(datae[i]["date"].substr(0, 10))
             price_data.push(datae[i]["price"])
         }
@@ -32,8 +31,6 @@ const Chart = ({storePrices}: Props) => {
         datasets_temp.push(dataset)
     }
 
- //   console.log(dates)
-  //  console.log(price_data)
     const test_data = {
         labels: dates,
         datasets: datasets_temp,

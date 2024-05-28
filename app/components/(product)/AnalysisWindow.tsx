@@ -55,7 +55,6 @@ const AnalysisWindow = ({ ean }: Props) => {
       console.log(response.message);
     } else {
       const temp = await res.json();
-      console.log(temp.store_prices[0]["price_history"]);
       setAverage(temp.average);
       setMean(temp.mean);
 
