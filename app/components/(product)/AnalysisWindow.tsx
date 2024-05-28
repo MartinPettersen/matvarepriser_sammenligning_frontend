@@ -2,13 +2,15 @@
 import { StorePrice } from "@/app/utils/types";
 import React, { useEffect, useState } from "react";
 import DisplayCard from "./DisplayCard";
+import PriceDisplay from './PriceDisplay'
+
 import Chart from "./Chart";
 
 type Props = {
   ean: string;
 };
 
-const PriceDisplay = ({ ean }: Props) => {
+const AnalysisWindow = ({ ean }: Props) => {
   const [storePrices, setStorePrices] = useState<StorePrice[]>([]);
   const [storePricesList, setStorePricesList] = useState<StorePrice[]>([]);
 
@@ -156,7 +158,9 @@ const PriceDisplay = ({ ean }: Props) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex  gap-3">
+      <div className="flex flex-col gap-3">
+
       <div className="flex gap-2">
         <div className="bg-white rounded-md p-2 flex flex-col gap-2">
           <div
@@ -223,8 +227,13 @@ const PriceDisplay = ({ ean }: Props) => {
         <Chart storePrices={storePrices}/>
         : null}
       </div>
+
+      </div>
+
+      <PriceDisplay storePrices={storePrices} />
+
     </div>
   );
 };
 
-export default PriceDisplay;
+export default AnalysisWindow;
